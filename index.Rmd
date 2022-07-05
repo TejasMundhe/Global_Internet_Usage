@@ -12,30 +12,65 @@ library(ggthemes)
 library(tigris)
 library(rnaturalearth)
 library(ggspatial)
+library(gapminder)
+library(gganimate)
+library(transformr)
+library(plotly)
 ```
+
 ```{r raw_data}
 raw_data <- read.csv("gapminder_internet.csv")
 ```
+
 ```{r clean_data}
 clean_data <- raw_data|>
   rename(iur = "internetuserate")|>
-  select(country, iur)|>
+  rename(gdpCap = "incomeperperson")|>
+  select(country, iur, urbanrate, gdpCap)|>
   drop_na()
 
 world <- ne_countries(scale = "medium", returnclass = "sf")
+gapminder_filt <- gapminder |> 
+      filter(year == 2007,
+             continent != 'Oceania')
+full_clean_data <- inner_join(gapminder_filt, clean_data, by = "country")|>
+  select(-year, -gdpCap)
 ```
 
 
-```{r}
+```{r world_plot}
 clean_data|>
-  ggplot(mapping = aes(), data = world)+
+  ggplot(data = world, mapping = aes())+
   geom_sf(aes(fill = gdp_md_est / 10000000))+
   scale_fill_viridis_c(option = "plasma", trans = "sqrt") +
   theme_void() +
-  #theme(legend.position = "none") +
+  # theme(legend.position = "none") +
   labs(title = "World GDP Map",
        subtitle = "The U.S and China have sizeable margins over the rest of the world",
-       fill = "GDP in \nBillions (USD)",
+       fill = "GDP in \nTrillions (USD)",
        caption = "Source: ")
+```
+```{r}
+internet_plot <- full_clean_data|>
+  ggplot(aes(x = gdpPercap, y = iur, color = continent, size = pop, text = paste("Country: ", country, "\nIUR: ", iur, "\nGDPperCap: ", gdpPercap)))+
+  geom_point() +
+  geom_smooth(method = "lm",
+              formula = y ~ x,
+              se = FALSE) +
+  facet_wrap(~ continent) +
+  scale_x_log10(breaks = c(300, 3000, 30000)) +
+  theme_bw() +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"),
+        panel.background = element_rect(fill = "lightblue"),
+        panel.grid.minor.x = element_blank()) +
+  scale_y_continuous(breaks = c(0,50,100)) +
+  
+  labs(title = "GDP per Capita regarding Internet Use Rate",
+       x = "GDP per Capita",
+       y = "Internet Use Rate",
+       caption = "Data from Gapminder")
+
+ggplotly(internet_plot, tooltip = "text")
 ```
 

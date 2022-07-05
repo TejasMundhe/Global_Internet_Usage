@@ -1,0 +1,41 @@
+---
+title: "Global Internet Usage"
+description: |
+  Welcome to the website. I hope you enjoy it!
+site: distill::distill_website
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggthemes)
+library(tigris)
+library(rnaturalearth)
+library(ggspatial)
+```
+```{r raw_data}
+raw_data <- read.csv("gapminder_internet.csv")
+```
+```{r clean_data}
+clean_data <- raw_data|>
+  rename(iur = "internetuserate")|>
+  select(country, iur)|>
+  drop_na()
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+```
+
+
+```{r}
+clean_data|>
+  ggplot(mapping = aes(), data = world)+
+  geom_sf(aes(fill = gdp_md_est / 10000000))+
+  scale_fill_viridis_c(option = "plasma", trans = "sqrt") +
+  theme_void() +
+  #theme(legend.position = "none") +
+  labs(title = "World GDP Map",
+       subtitle = "The U.S and China have sizeable margins over the rest of the world",
+       fill = "GDP in \nBillions (USD)",
+       caption = "Source: ")
+```
+

@@ -8,3 +8,16 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
+## About Me
+My name is [**Tejas Mundhe**](https://github.com/TejasMundhe), an incoming sophomore at Walnut Hills High School in Cincinnati Ohio with an interest in Data Science, Computer Science, and Robotics. I also enjoy sports, playing video games, and reading in my free time.
+
+## About this Project
+This project, *Global Internet Usage* is made up of a multitude interactive or animated plots and models. This was made as my final project for the Stanford Pre-Collegiate Institutes Introduction to Data Science Course.
+
+## Goals
++ Continue my journey into the world of Data Science
++ Practice making larger projects which are easily acessible online
++ Practice using Distill and Modeling techniques to apply what I've learned
++ Observe Gapminder and Country Internet data in a meaningful way
+
+

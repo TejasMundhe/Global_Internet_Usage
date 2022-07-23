@@ -1,0 +1,57 @@
+---
+title: "GDP Map"
+description: |
+  A map visualizing the GDP of countries around the world.
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggthemes)
+library(tigris)
+library(rnaturalearth)
+library(ggspatial)
+library(gapminder)
+library(transformr)
+library(scales)
+```
+
+```{r raw_data}
+raw_data <- read.csv("gapminder_internet.csv")
+```
+
+```{r clean_data}
+clean_data <- raw_data|>
+  rename(iur = "internetuserate")|>
+  rename(gdpCap = "incomeperperson")|>
+  select(country, iur, urbanrate, gdpCap)|>
+  drop_na()
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+gapminder_filt <- gapminder |> 
+      filter(year == 2007,
+             continent != 'Oceania')
+full_clean_data <- inner_join(gapminder_filt, clean_data, by = "country")|>
+  select(-year, -gdpCap)
+```
+A countries nominal [GDP](https://www.investopedia.com/terms/g/gdp.asp) is the total value of all of its goods and services. This can be helpful to provide an economic snapshot of a certain country.
+
+## Global GDP Map
+### The U.S and China have sizeable margins over the rest of the world
+
+```{r world_plot}
+clean_data|>
+  ggplot(data = world, mapping = aes())+
+  geom_sf(aes(fill = gdp_md_est / 1000000))+
+  scale_fill_viridis_c(option = "plasma", labels = label_comma(), trans = "log10", breaks = c(0.0001, 0.005, 0.1, 15)) +
+  theme_void() +
+  # theme(legend.position = "none") +
+  labs(fill = "GDP in \nTrillions (USD)")
+```
+
+
+
+
+

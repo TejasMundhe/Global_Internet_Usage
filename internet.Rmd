@@ -1,0 +1,73 @@
+---
+title: "Internet Use Rate"
+description: |
+  A faceted analysis of factors which contribute to a countries Internet Use Rate.
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+A countries [Internet Use Rate](https://en.wikipedia.org/wiki/Global_Internet_usage) is the percentage of people who use the internet inside of it. In the plot below, we will be examining the Internet Use Rate's correlation with each country's GDP Per Captia which is a measure of a countries GDP per person. 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggthemes)
+library(tigris)
+library(rnaturalearth)
+library(ggspatial)
+library(gapminder)
+library(transformr)
+library(plotly)
+library(scales)
+```
+
+```{r raw_data}
+raw_data <- read.csv("gapminder_internet.csv")
+```
+
+## GDP per Capita vs Internet Use Rate 
+##### In every continent, the GDP per Capita and Internet Use Rate are positively correlated.
+
+```{r clean_data}
+clean_data <- raw_data|>
+  rename(iur = "internetuserate")|>
+  rename(gdpCap = "incomeperperson")|>
+  select(country, iur, urbanrate, gdpCap)|>
+  drop_na()
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+gapminder_filt <- gapminder |> 
+      filter(year == 2007,
+             continent != 'Oceania')
+full_clean_data <- inner_join(gapminder_filt, clean_data, by = "country")|>
+  select(-year, -gdpCap)
+```
+
+```{r}
+internet_plot <- full_clean_data|>
+  ggplot(aes(x = gdpPercap, y = iur, color = continent, size = pop, text = paste("Country: ", country, "\nIUR: ", iur, "\nGDPperCap: ", gdpPercap)))+
+  geom_point() +
+  geom_smooth(method = "lm",
+              formula = y ~ x,
+              se = FALSE,
+              inherit.aes=FALSE,
+              aes(x = gdpPercap, y = iur, color = continent)) +
+  facet_wrap(~ continent) +
+  scale_x_log10(breaks = c(300, 3000, 30000)) +
+  theme_bw() +
+  theme(legend.position = "none",
+        plot.title = element_text(face = "bold"),
+        panel.background = element_rect(fill = "lightblue"),
+        panel.grid.minor.x = element_blank()) +
+  scale_y_continuous(breaks = c(0,50,100)) +
+  
+  labs(x = "GDP per Capita",
+       y = "Internet Use Rate")
+
+ggplotly(internet_plot, tooltip = "text")
+```
+
+
+
+
+

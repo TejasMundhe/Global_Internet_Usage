@@ -1,0 +1,29 @@
+---
+title: "Sources"
+description: |
+  Credits and more information about the sources which were used in the making of this project.
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+## Source 1
+
+The first source was the data set "[Global Internet Usage](https://www.kaggle.com/datasets/sansuthi/gapminder-internet)" from Kaggle. This allowed the creation of the Internet Use Rate scatter plot.
+
+
+## Source 2
+
+Another source which I used is the [`gapminder`](https://www.gapminder.org/) package. This contributed towards the creation of every plot and model(to some degree) on this website. To read more about this and use it in your own projects see the "gapminder" hyperlink above.  
+
+
+## Source 3
+
+Source 3 was the [`rnaturalearth`](https://cran.r-project.org/web/packages/rnaturalearth/README.html) package which allowed me to create the World GDP Map. To read more about this and use it in your own projects see the "rnaturalearth" hyperlink above.
+
+## Credits
+
+This project was heavily inspired by plots in [Preceptor's Primer for Bayesian Data Science](https://ppbds.github.io/primer/). I also used much of it's information as resources when creating many of this website's plots and models.

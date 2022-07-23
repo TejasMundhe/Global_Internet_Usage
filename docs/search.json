@@ -5,16 +5,60 @@
       "title": "About this site",
       "description": "Some additional details about the website",
       "author": [],
-      "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-07-04T22:24:21-04:00"
+      "contents": "\r\nAbout Me\r\nMy name is Tejas\r\nMundhe, an incoming sophomore at Walnut Hills High School\r\nin Cincinnati Ohio with an interest in Data Science, Computer Science,\r\nand Robotics. I also enjoy sports, playing video games, and reading in\r\nmy free time.\r\nAbout this Project\r\nThis project, Global Internet Usage is made up of a\r\nmultitude interactive or animated plots and models. This was made as my\r\nfinal project for the Stanford Pre-Collegiate Institutes Introduction to\r\nData Science Course.\r\nGoals\r\nContinue my journey into the world of Data Science\r\nPractice making larger projects which are easily acessible\r\nonline\r\nPractice using Distill and Modeling techniques to apply what I’ve\r\nlearned\r\nObserve Gapminder and Country Internet data in a meaningful way\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-07-22T21:28:25-04:00"
     },
     {
       "path": "index.html",
       "title": "Global Internet Usage",
       "description": "Welcome to the website. I hope you enjoy it!\n",
       "author": [],
-      "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
-      "last_modified": "2022-07-05T17:29:00-04:00"
+      "contents": "\r\nWelcome!\r\nHi there. In this website I’ll be analyzing the factors which make up\r\na country such as GDP, Population, Internet Use Rate, and more. This\r\nwill be done through several plots from maps to faceted scatter plots.\r\nI’ll also be predicting information about country’s using models based\r\noff of the factors mentioned earlier. Feel free to explore the different\r\npages and take a look at your favorites. Enjoy!\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-07-22T21:28:26-04:00"
+    },
+    {
+      "path": "internet.html",
+      "title": "Internet Use Rate",
+      "description": "A faceted analysis of factors which contribute to a countries Internet Use Rate.\n",
+      "author": [],
+      "date": "`r Sys.Date()`",
+      "contents": "\r\nA countries Internet Use\r\nRate is the percentage of people who use the internet inside of it.\r\nIn the plot below, we will be examining the Internet Use Rate’s\r\ncorrelation with each country’s GDP Per Captia which is a measure of a\r\ncountries GDP per person.\r\n\r\n\r\n\r\nGDP per Capita vs Internet\r\nUse Rate\r\nIn\r\nevery continent, the GDP per Capita and Internet Use Rate are positively\r\ncorrelated.\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-07-22T21:28:30-04:00"
+    },
+    {
+      "path": "population.html",
+      "title": "Life Expectancy",
+      "description": "An animated model to view a country's life expectancy.\n",
+      "author": [],
+      "contents": "\r\nLife\r\nExpectancy in a particular country is the number of years somebody\r\ncan expect to live on average when born there. This is a popular metric\r\nfor determining how healthy a country is. The plot below analyzes\r\nwhether the Life Expectancy of a Country is effected by its GDP Per\r\nCapita using animation by Year.\r\nCountry Life\r\nExpectancy vs GDP Per Capita\r\nAs\r\na country’s GDP per Capita increases, the Life Expectancy does as\r\nwell\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-07-22T21:28:59-04:00"
+    },
+    {
+      "path": "predict.html",
+      "title": "Predictions",
+      "description": "Models which are used to analyze countries.\n",
+      "author": [],
+      "date": "`r Sys.Date()`",
+      "contents": "\r\nThe models below use Decision Trees\r\nwhich are tree-like models which are used to predict the chances that a\r\ncertain event happens. Below I’ve created two decision trees which\r\npredict whether a country is considered wealthy or populous depending on\r\nthe given factors. The number 1 is considered TRUE and the number 0 is\r\nconsidered false. (Ex: USA = 1 means that it is considered wealthy)\r\nGDP Per Capita Decision Tree\r\nThe\r\ndecision tree below predicts whether a country is considered rich based\r\noff of factors such as its population and continent.\r\n\r\n\r\n\r\nPopulation Decision Tree\r\nThis\r\ndecision tree analyzes how populated a country is based off of its GDP\r\nper Capita, Life Expectancy, and Continent.\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-07-22T21:29:00-04:00"
+    },
+    {
+      "path": "sources.html",
+      "title": "Sources",
+      "description": "Credits and more information about the sources which were used in the making of this project.\n",
+      "author": [],
+      "date": "`r Sys.Date()`",
+      "contents": "\r\nSource 1\r\nThe first source was the data set “Global\r\nInternet Usage” from Kaggle. This allowed the creation of the\r\nInternet Use Rate scatter plot.\r\nSource 2\r\nAnother source which I used is the gapminder package.\r\nThis contributed towards the creation of every plot and model(to some\r\ndegree) on this website. To read more about this and use it in your own\r\nprojects see the “gapminder” hyperlink above.\r\nSource 3\r\nSource 3 was the rnaturalearth\r\npackage which allowed me to create the World GDP Map. To read more about\r\nthis and use it in your own projects see the “rnaturalearth” hyperlink\r\nabove.\r\nCredits\r\nThis project was heavily inspired by plots in Preceptor’s Primer for Bayesian\r\nData Science. I also used much of it’s information as resources when\r\ncreating many of this website’s plots and models.\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-07-22T21:29:01-04:00"
+    },
+    {
+      "path": "worldGdp.html",
+      "title": "GDP Map",
+      "description": "A map visualizing the GDP of countries around the world.\n",
+      "author": [],
+      "date": "`r Sys.Date()`",
+      "contents": "\r\n\r\n\r\n\r\n\r\n\r\n\r\nA countries nominal GDP is the total\r\nvalue of all of its goods and services. This can be helpful to provide\r\nan economic snapshot of a certain country.\r\nGlobal GDP Map\r\nThe\r\nU.S and China have sizeable margins over the rest of the world\r\n\r\n\r\n\r\n\r\n\r\n\r\n",
+      "last_modified": "2022-07-22T21:29:03-04:00"
     }
   ],
   "collections": []

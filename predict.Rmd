@@ -1,0 +1,47 @@
+---
+title: "Predictions"
+description: |
+  Models which are used to analyze countries.
+date: "`r Sys.Date()`"
+output: distill::distill_article
+---
+
+The models below use [Decision Trees](https://en.wikipedia.org/wiki/Decision_tree) which are tree-like models which are used to predict the chances that a certain event happens. Below I've created two decision trees which predict whether a country is considered wealthy or populous depending on the given factors. The number 1 is considered TRUE and the number 0 is considered false. (Ex: USA = 1 means that it is considered wealthy) 
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(rpart)
+library(rpart.plot)
+library(tidyverse)
+library(gapminder)
+library(repr)
+```
+
+## GDP Per Capita Decision Tree
+##### The decision tree below predicts whether a country is considered rich based off of factors such as its population and continent.
+
+```{r}
+clean <- gapminder |>
+  filter(year == 2007) |>
+  mutate(rich = if_else(gdpPercap >= 25000, 1, 0))
+
+tree <- rpart(formula = rich ~ pop + continent, data = clean, method = "class")
+
+rpart.plot(tree)
+```
+
+## Population Decision Tree
+##### This decision tree analyzes how populated a country is based off of its GDP per Capita, Life Expectancy, and Continent.
+```{r}
+clean2 <- gapminder |>
+  filter(year == 2007) |>
+  mutate(populated = if_else(pop > 50000000, 1, 0))
+
+tree2 <- rpart(formula = populated ~ continent + lifeExp + gdpPercap, data = clean2, method = "class")
+rpart.plot(tree2)
+```
+
+
+
+
+

@@ -1,0 +1,45 @@
+---
+title: "Life Expectancy"
+description: |
+  An animated model to view a country's life expectancy.
+output: distill::distill_article
+---
+
+[Life Expectancy](https://ourworldindata.org/life-expectancy) in a particular country is the number of years somebody can expect to live on average when born there. This is a popular metric for determining how healthy a country is. The plot below analyzes whether the Life Expectancy of a Country is effected by its GDP Per Capita using animation by Year.
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(gganimate)
+library(tidyverse)
+library(gapminder)
+library(plotly)
+library(ggthemes)
+library(viridis)
+library(scales)
+theme_set(theme_bw())
+# gapminder
+```
+
+## Country Life Expectancy vs GDP Per Capita 
+##### As a country's GDP per Capita increases, the Life Expectancy does as well
+
+```{r, warning = FALSE}
+x <- gapminder |>
+  ggplot(aes(x = gdpPercap, y = lifeExp, color = continent, size = pop)) +
+  geom_point() +
+  geom_smooth(method = "lm", formula = y ~ x, se = FALSE, color = "lightblue") +
+  scale_x_log10(labels = label_comma()) +
+  scale_y_continuous(labels = label_comma()) +
+  labs(x = "GDP Per Capita",
+       y = "Life Expectancy",
+       color = "Continent")
+  x + transition_time(year) +
+    labs(title = "Year: {frame_time}") +
+    guides(size = FALSE)
+```
+
+
+
+
+
+

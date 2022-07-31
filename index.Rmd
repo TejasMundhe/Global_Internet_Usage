@@ -8,3 +8,71 @@ site: distill::distill_website
 ## Welcome! 
 
 Hi there. In this website I'll be analyzing the factors which make up a country such as GDP, Population, Internet Use Rate, and more. This will be done through several plots from maps to faceted scatter plots. I'll also be predicting information about country's using models based off of the factors mentioned earlier. Feel free to explore the different pages and take a look at your favorites. Enjoy!
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+library(tidyverse)
+library(ggthemes)
+library(tigris)
+library(rnaturalearth)
+library(ggspatial)
+library(gapminder)
+library(transformr)
+library(plotly)
+library(scales)
+library(viridis)
+options(rgl.useNULL = TRUE)
+library(rayshader)
+library(rgl)
+library(tidyverse)
+library(magick)
+```
+
+```{r raw_data}
+raw_data <- read.csv("gapminder_internet.csv")
+```
+
+
+```{r clean_data}
+clean_data <- raw_data|>
+  rename(iur = "internetuserate")|>
+  rename(gdpCap = "incomeperperson")|>
+  select(country, iur, urbanrate, gdpCap)|>
+  drop_na()
+
+world <- ne_countries(scale = "medium", returnclass = "sf")
+gapminder_filt <- gapminder |> 
+      filter(year == 2007)
+full_clean_data <- inner_join(gapminder_filt, clean_data, by = "country")
+```
+
+```{r}
+sumPlot <- full_clean_data |>
+  group_by(continent) |>
+  summarize(avg_iur = mean(iur), avg_urban = mean(urbanrate))  |>
+  ggplot(aes(x = continent, y = avg_iur, fill = avg_urban)) +
+  geom_col() +
+  scale_fill_viridis(option = "F") +
+  theme_classic() +
+  theme(panel.background = element_rect(fill = "#BFD5E3", color = "#BFD5E3"),
+        axis.text.x = element_text(angle = 90, vjust = 0.5, hjust = 1)) +
+  labs(title = "Internet Use Rate by Continent",
+       subtitle = "More Urban, developed continents tend\nto have more acess to the internet",
+       x = "Continent",
+       y = "Internet Use Rate",
+       fill = "Urban Rate")
+
+plot_gg(sumPlot,
+       width = 3.5,
+         zoom = 0.65,
+         theta = 25,
+         phi = 30,
+         sunangle = 225,
+         soliddepth = -0.5,
+         raytrace = FALSE,
+         windowsize = c(2048,1536))
+ rglwidget()
+ 
+ rgl.close()
+```
+
